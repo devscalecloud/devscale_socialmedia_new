@@ -26,7 +26,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
+      - name: Debug secrets
+        run: |
+          if [ -z "${{ secrets.DOCKERHUB_USERNAME }}" ]; then echo "USERNAME is empty"; else echo "USERNAME exists"; fi
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v5
