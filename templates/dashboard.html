@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevScale Social - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep: #081524;
+            --ocean: #123a6f;
+            --teal: #11b8b2;
+            --teal-soft: #d9f7f5;
+            --sun: #ffd166;
+            --bg: #eef3fb;
+            --card: #ffffff;
+            --text: #102238;
+            --muted: #5f7290;
+            --line: #dce5f2;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(1000px 500px at 80% -20%, #c9efff 0%, transparent 60%),
+                radial-gradient(900px 500px at -10% 120%, #f8edc8 0%, transparent 55%),
+                var(--bg);
+            min-height: 100vh;
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 24px;
+            background: linear-gradient(100deg, #0d1f36 0%, #11345f 65%, #145f8a 100%);
+            color: white;
+            box-shadow: 0 8px 30px rgba(12, 26, 44, .28);
+        }
+
+        .brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            letter-spacing: -.5px;
+            font-weight: 700;
+        }
+
+        .brand span { color: var(--sun); }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .logout {
+            text-decoration: none;
+            color: #eaf6ff;
+            border: 1px solid rgba(255,255,255,.28);
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-weight: 700;
+            transition: .18s ease;
+        }
+
+        .logout:hover { background: rgba(255,255,255,.12); }
+
+        .layout {
+            width: min(980px, 100%);
+            margin: 22px auto 36px;
+            padding: 0 16px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+        }
+
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            box-shadow: 0 8px 26px rgba(10, 23, 40, .08);
+        }
+
+        .server-box {
+            padding: 14px 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            color: #eaf7ff;
+            background: linear-gradient(130deg, #0d2139 0%, #104a7c 62%, #11b8b2 100%);
+            border: 1px solid rgba(255, 255, 255, .18);
+        }
+
+        .server-item {
+            font-size: 21px;
+            font-weight: 800;
+            color: #ffd166;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, .2);
+        }
+
+        .server-item strong {
+            color: #ffd166;
+            margin-right: 4px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            letter-spacing: .2px;
+            font-weight: 800;
+        }
+
+        .hero {
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            background: linear-gradient(130deg, #ffffff 0%, #f0fbfa 100%);
+        }
+
+        .welcome {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(24px, 4vw, 34px);
+            line-height: 1.1;
+        }
+
+        .welcome span { color: var(--ocean); }
+
+        .chip {
+            font-size: 12px;
+            font-weight: 700;
+            color: #0f5f66;
+            background: var(--teal-soft);
+            border: 1px solid #bcece8;
+            padding: 8px 12px;
+            border-radius: 999px;
+        }
+
+        .composer {
+            padding: 18px;
+        }
+
+        .composer h2 {
+            font-size: 17px;
+            margin-bottom: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .alert {
+            margin-bottom: 10px;
+            border: 1px solid #ffc7c7;
+            color: #b63838;
+            background: #ffeceb;
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 108px;
+            resize: vertical;
+            border: 1px solid #c9d8ea;
+            border-radius: 12px;
+            padding: 12px;
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+            transition: .2s;
+        }
+
+        textarea:focus {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 4px rgba(17, 184, 178, .14);
+        }
+
+        .row {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .hint {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .btn {
+            border: none;
+            border-radius: 11px;
+            padding: 11px 16px;
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+            background: linear-gradient(110deg, #0f223e 0%, #15467d 55%, #11b8b2 100%);
+            box-shadow: 0 10px 20px rgba(12, 40, 76, .26);
+            transition: transform .15s ease;
+        }
+
+        .btn:hover { transform: translateY(-1px); }
+
+        .feed {
+            padding: 14px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .post {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 14px;
+            background: #fff;
+            animation: rise .34s ease;
+        }
+
+        .post-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .author {
+            font-weight: 800;
+            color: #123a6f;
+            font-size: 15px;
+        }
+
+        .time {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .content {
+            line-height: 1.6;
+            color: #1f324c;
+            word-break: break-word;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 24px;
+            color: var(--muted);
+            border: 1px dashed #c9d8ea;
+            border-radius: 14px;
+        }
+
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 720px) {
+            .nav { padding: 12px 14px; }
+            .brand { font-size: 20px; }
+            .hero { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <header class="nav">
+        <div class="brand">DevScale<span>Social</span></div>
+        <div class="nav-right">
+            <strong>{{.CurrentUser}}</strong>
+            <a class="logout" href="/logout">Logout</a>
+        </div>
+    </header>
+
+    <main class="layout">
+        <section class="panel server-box" aria-label="Server information">
+            <div class="server-item"><strong>IP Address:</strong> {{.ServerIP}}</div>
+            <div class="server-item"><strong>Hostname:</strong> {{.Hostname}}</div>
+        </section>
+
+        <section class="panel hero">
+            <h1 class="welcome">Hi <span>{{.CurrentUser}}</span>, ready to post?</h1>
+            <div class="chip">Live in-memory timeline</div>
+        </section>
+
+        <section class="panel composer">
+            <h2>Create Post</h2>
+
+            {{if .Error}}
+            <div class="alert">{{.Error}}</div>
+            {{end}}
+
+            <form method="POST" action="/post">
+                <textarea name="content" maxlength="280" placeholder="What's on your mind right now?" required></textarea>
+                <div class="row">
+                    <p class="hint">Maximum 280 characters.</p>
+                    <button class="btn" type="submit">Post Update</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel feed">
+            {{if .Posts}}
+                {{range .Posts}}
+                <article class="post">
+                    <div class="post-top">
+                        <div class="author">{{.Author}}</div>
+                        <div class="time">{{formatTime .CreatedAt}}</div>
+                    </div>
+                    <p class="content">{{.Content}}</p>
+                </article>
+                {{end}}
+            {{else}}
+            <div class="empty">No posts yet. Create the first post above.</div>
+            {{end}}
+        </section>
+    </main>
+</body>
+</html>
